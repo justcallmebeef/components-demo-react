@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import Toolbar from './Toolbar.js'
+import Image from './Image.js'
+
+let size = 50
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+  constructor () {
+    super()
+      this.state = {
+      size: 100
   }
 }
 
-export default App;
+  makeBigger = () => {
+    const newSize = this.state.size + 10
+    this.setState ({
+      size: newSize
+    })
+  }
+
+  makeSmaller = () => {
+    let newSize = this.state.size - 10 
+    if (newSize < 0) {
+      newSize = 1
+    }
+    this.setState({
+      size: newSize
+    })
+  }
+
+  render () {
+    return ( 
+      <>
+        <Image size={this.state.size}/> 
+        <Toolbar makeBigger={this.makeBigger} makeSmaller={this.makeSmaller}/>
+      </>
+    )
+  }
+}
+
+export default App
